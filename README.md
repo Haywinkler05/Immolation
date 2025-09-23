@@ -1,0 +1,1 @@
+A fallen angel has fallen from the heavens into limbo from which he must escape to prove himself to his father. To escape he must find the altar, while avoiding the impending light from his brethren. This game is being made for the following jam: https://itch.io/jam/themed-horror-game-jam-22
