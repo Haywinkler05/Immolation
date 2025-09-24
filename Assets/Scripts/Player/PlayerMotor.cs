@@ -6,7 +6,12 @@ public class PlayerMotor : MonoBehaviour
 
     private CharacterController controller; //Calls the character controller
     [Header("Player movement settings")]
+    [SerializeField] private bool isGrounded;
     [SerializeField] private float speed = 2f; //Player move speed
+    [SerializeField] private bool isSprinting = false;
+    [SerializeField] private float jumpHeight = 3f;
+    [SerializeField] private float gravity = -9.8f;
+    private Vector3 playerVelocity;
     
     [Header("Player Look settings")]
     [SerializeField]private float xRotation = 0;
@@ -21,14 +26,24 @@ public class PlayerMotor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        isGrounded = controller.isGrounded;
         
     }
+    
     public void processMove(Vector2 input) //Moves the player based on the input
     {
         Vector3 moveDirection = Vector3.zero; //assigns the move direction to a vector of <0,0,0>
         moveDirection.x = input.x;
         moveDirection.z = input.y;//Gets the input vectors assigned by the parameter
         controller.Move(transform.TransformDirection(moveDirection * speed * Time.deltaTime));
+        playerVelocity.y += gravity * Time.deltaTime;
+        if (isGrounded && playerVelocity.y < 0)
+        {
+            playerVelocity.y = -2f;
+        }
+        controller.Move(playerVelocity * Time.deltaTime);
+
+
         //Tells the character controller to move by transforming the player position with the speed and adjusted for frames
     }
 
@@ -46,6 +61,27 @@ public class PlayerMotor : MonoBehaviour
         //The code below is for  the x axis and will physically turn the player when the mouse looks left or right
             //Why we use transform.rotate here and not cam.transform like above
         transform.Rotate(Vector3.up * (mouseX * Time.deltaTime) * HorizontalSense); //Allows the player to look right and left
+    }
+
+    public void processJump()
+    {
+        if (isGrounded)
+        {
+            playerVelocity.y = Mathf.Sqrt(jumpHeight * -3 * gravity); //Uses a physics equation to apply velocity to the player
+        }
+    }
+
+    public void processSprint()
+    {
+        isSprinting = !isSprinting; //negates the sprinting value
+        if (isSprinting) 
+        {
+            speed = 8; //updates speed
+        }
+        else
+        {
+            speed = 5; //Restores speed
+        }
     }
   
 }

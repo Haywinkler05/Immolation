@@ -13,6 +13,9 @@ public class InputManager : MonoBehaviour
         motor = GetComponent<PlayerMotor>(); //On awake it intializes the motor
         playerInput = new PlayerInput(); //Creates a new instance of the player input script that is generated automatically by unity
         playerActions = playerInput.Player; //Assins the new instance to the player map specifically in the input map
+
+        playerActions.Jump.performed += ctx => motor.processJump(); //When the button is preformed, it points to the jump function
+        playerActions.Sprint.performed += ctx => motor.processSprint();
     }
     private void FixedUpdate() //Happens every couple of frames, normally used for physics and any movement
     {

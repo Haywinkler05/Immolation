@@ -282,10 +282,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88f085aed461dbd4ead53c36669655d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGrounded: 0
   speed: 5
+  isSprinting: 0
+  jumpHeight: 3
+  gravity: -9.8
   xRotation: 0
   VerticalSense: 30
-  HorizontalSense: 0.5
+  HorizontalSense: 30
   cam: {fileID: 887979836}
 --- !u!1 &114910486
 GameObject:
