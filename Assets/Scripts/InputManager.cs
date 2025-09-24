@@ -4,26 +4,28 @@ using UnityEngine.InputSystem;
 public class InputManager : MonoBehaviour
 {
     private PlayerInput playerInput;
-    private PlayerInput.PlayerActions movement;
+    private PlayerInput.PlayerActions playerActions;
+   
 
     private PlayerMotor motor;
     private void Awake()
     {
         motor = GetComponent<PlayerMotor>();
         playerInput = new PlayerInput();
-        movement = playerInput.Player;
+        playerActions = playerInput.Player;
     }
     private void FixedUpdate()
     {
-       motor.processMove(movement.Movement.ReadValue<Vector2>());
+       motor.processMove(playerActions.Movement.ReadValue<Vector2>());
+       motor.processLook(playerActions.Look.ReadValue<Vector2>());
     }
 
     private void OnEnable()
     {
-        movement.Enable();
+        playerActions.Enable();
     }
     private void OnDisable()
     {
-        movement.Disable();
+        playerActions.Disable();
     }
 }
