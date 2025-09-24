@@ -7,10 +7,12 @@ public class MainMenu : MonoBehaviour
     {
         // Change index once object created
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        Debug.Log("PlayGame");
     }
 
     public void QuitGame()
     {
         Application.Quit();
+        Debug.Log("QuitGame");
     }
 }
