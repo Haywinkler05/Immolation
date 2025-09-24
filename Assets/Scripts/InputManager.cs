@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class InputManager : MonoBehaviour
 {
@@ -8,8 +9,10 @@ public class InputManager : MonoBehaviour
    
 
     private PlayerMotor motor; //Make an instance of the player motor class
+  
     private void Awake() //Awake happens at the start of unity
     {
+        
         motor = GetComponent<PlayerMotor>(); //On awake it intializes the motor
         playerInput = new PlayerInput(); //Creates a new instance of the player input script that is generated automatically by unity
         playerActions = playerInput.Player; //Assins the new instance to the player map specifically in the input map
@@ -17,6 +20,7 @@ public class InputManager : MonoBehaviour
         playerActions.Jump.performed += ctx => motor.processJump(); //When the button is preformed, it points to the jump function
         playerActions.Sprint.performed += ctx => motor.processSprint();
         playerActions.Dash.performed += ctx => motor.processDash();
+        playerActions.Menu.performed += ctx => SceneManager.LoadScene("HomeScreen");
     }
     private void FixedUpdate() //Happens every couple of frames, normally used for physics and any movement
     {
