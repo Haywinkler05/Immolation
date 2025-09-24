@@ -283,6 +283,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  xRotation: 0
+  VerticalSense: 30
+  HorizontalSense: 0.5
+  cam: {fileID: 887979836}
 --- !u!1 &114910486
 GameObject:
   m_ObjectHideFlags: 0

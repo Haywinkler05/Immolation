@@ -17,7 +17,11 @@ public class InputManager : MonoBehaviour
     private void FixedUpdate() //Happens every couple of frames, normally used for physics and any movement
     {
        motor.processMove(playerActions.Movement.ReadValue<Vector2>()); //Reads the values from the movement and look map
-       motor.processLook(playerActions.Look.ReadValue<Vector2>());
+       
+    }
+    private void LateUpdate()
+    {
+        motor.processLook(playerActions.Look.ReadValue<Vector2>());
     }
 
     private void OnEnable()
