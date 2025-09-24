@@ -1,38 +1,31 @@
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerHUD : MonoBehaviour
 {
     // Variables
-    public float health;
-    public float maxHealth;
-    public Image healthBar;
-    public float stamina;
-    public float maxStamina;
-    public Image staminaBar;
 
-    void Start()
+    public Slider healthBar;
+    public Slider staminaBar;
+    private PlayerBase playerBase;
+
+    public void HealthStartBar()
     {
-        // Initial Health Pool
-        maxHealth = 100;
-        health = maxHealth;
-
-        // Initial Stamina Pool
-        maxStamina = 100;
-        stamina = maxStamina;
+        healthBar.maxValue = playerBase.gethealth();
+        healthBar.value = playerBase.gethealth();
     }
-
-    void Update()
+    public void StaminaStartBar()
     {
-        // Health Bar
-        healthBar.fillAmount = Mathf.Clamp(health / maxHealth, 0, 1);
-
-        // Health check
-        if(health <= 0)
-        {
-            Destroy(gameObject);
-        }
-
-        // Stamina Regen
+        staminaBar.maxValue = playerBase.getStamina();
+        staminaBar.value = playerBase.getStamina();
+    }
+    public void SetHealthBar()
+    {
+        healthBar.value = playerBase.gethealth();
+    }
+    public void SetStaminaBar()
+    {
+        healthBar.value = playerBase.getStamina();
     }
 }
