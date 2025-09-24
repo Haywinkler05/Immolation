@@ -2,14 +2,12 @@ using UnityEngine;
 
 public class PlayerMotor : MonoBehaviour
 {
-   
 
+    private PlayerBase player;
     private CharacterController controller; //Calls the character controller
-    [Header("Player movement settings")]
+    [Header("Player movement attributes")]
     [SerializeField] private bool isGrounded;
-    [SerializeField] private float speed = 2f; //Player move speed
     [SerializeField] private bool isSprinting = false;
-    [SerializeField] private float jumpHeight = 3f;
     [SerializeField] private float gravity = -9.8f;
     private Vector3 playerVelocity;
     
@@ -20,6 +18,7 @@ public class PlayerMotor : MonoBehaviour
     [SerializeField] private Camera cam;
     void Start() // Start is called once before the first execution of Update after the MonoBehaviour is created
     {
+        player = GetComponent<PlayerBase>();
         controller = GetComponent<CharacterController>(); //Assigns the character controller
     }
 
@@ -35,7 +34,7 @@ public class PlayerMotor : MonoBehaviour
         Vector3 moveDirection = Vector3.zero; //assigns the move direction to a vector of <0,0,0>
         moveDirection.x = input.x;
         moveDirection.z = input.y;//Gets the input vectors assigned by the parameter
-        controller.Move(transform.TransformDirection(moveDirection * speed * Time.deltaTime));
+        controller.Move(transform.TransformDirection(moveDirection * player.getSpeed() * Time.deltaTime));
         playerVelocity.y += gravity * Time.deltaTime;
         if (isGrounded && playerVelocity.y < 0)
         {
@@ -67,7 +66,7 @@ public class PlayerMotor : MonoBehaviour
     {
         if (isGrounded)
         {
-            playerVelocity.y = Mathf.Sqrt(jumpHeight * -3 * gravity); //Uses a physics equation to apply velocity to the player
+            playerVelocity.y = Mathf.Sqrt(player.getJumpheight() * -3 * gravity); //Uses a physics equation to apply velocity to the player
         }
     }
 
@@ -76,11 +75,11 @@ public class PlayerMotor : MonoBehaviour
         isSprinting = !isSprinting; //negates the sprinting value
         if (isSprinting) 
         {
-            speed = 8; //updates speed
+            player.setSpeed(8); //updates speed
         }
         else
         {
-            speed = 5; //Restores speed
+            player.setSpeed(5); //Restores speed
         }
     }
   

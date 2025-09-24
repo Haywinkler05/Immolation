@@ -132,8 +132,9 @@ GameObject:
   - component: {fileID: 33782419}
   - component: {fileID: 33782418}
   - component: {fileID: 33782423}
+  - component: {fileID: 33782426}
+  - component: {fileID: 33782425}
   - component: {fileID: 33782424}
-  - component: {fileID: 33782422}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -233,18 +234,6 @@ Transform:
   - {fileID: 887979837}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &33782422
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 33782417}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad039e61c57d327409a2942d13ced853, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!143 &33782423
 CharacterController:
   m_ObjectHideFlags: 0
@@ -283,14 +272,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGrounded: 0
-  speed: 5
   isSprinting: 0
   jumpHeight: 3
   gravity: -9.8
   xRotation: 0
-  VerticalSense: 30
-  HorizontalSense: 30
+  VerticalSense: 10
+  HorizontalSense: 10
   cam: {fileID: 887979836}
+--- !u!114 &33782425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33782417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad039e61c57d327409a2942d13ced853, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &33782426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33782417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02bbfac7a635827419ecdba7c1cecc40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHealth: 100
+  playerStamina: 100
+  playerSpeed: 5
 --- !u!1 &114910486
 GameObject:
   m_ObjectHideFlags: 0
