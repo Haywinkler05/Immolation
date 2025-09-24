@@ -16,10 +16,12 @@ public class InputManager : MonoBehaviour
 
         playerActions.Jump.performed += ctx => motor.processJump(); //When the button is preformed, it points to the jump function
         playerActions.Sprint.performed += ctx => motor.processSprint();
+        playerActions.Dash.performed += ctx => motor.processDash();
     }
     private void FixedUpdate() //Happens every couple of frames, normally used for physics and any movement
     {
        motor.processMove(playerActions.Movement.ReadValue<Vector2>()); //Reads the values from the movement and look map
+        
        
     }
     private void LateUpdate()

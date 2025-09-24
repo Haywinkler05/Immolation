@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMotor : MonoBehaviour
@@ -9,7 +10,12 @@ public class PlayerMotor : MonoBehaviour
     [SerializeField] private bool isGrounded;
     [SerializeField] private bool isSprinting = false;
     [SerializeField] private float gravity = -9.8f;
+    [SerializeField] private bool isDashing;
+    [SerializeField] private float dashDist = 5;
+    [SerializeField] private float dashTime = 0.2f;
+    [SerializeField] private float dashTimer = 0f;
     private Vector3 playerVelocity;
+    private Vector3 dashVelocity;
     
     [Header("Player Look settings")]
     [SerializeField]private float xRotation = 0;
@@ -26,7 +32,28 @@ public class PlayerMotor : MonoBehaviour
     void Update()
     {
         isGrounded = controller.isGrounded;
-        
+
+        if (isDashing) //If the player is dashing
+        {
+          
+            controller.Move(dashVelocity * Time.deltaTime); //Move the player
+            dashTimer += Time.deltaTime; //increment the dash timer
+            if(dashTimer > dashTime)
+            {
+                isDashing = false; //Once the dash timer is greater than the dash time, set is dashing to false
+            }
+            
+        }
+
+        playerVelocity.y += gravity * Time.deltaTime;
+        if (isGrounded && playerVelocity.y < 0)
+        {
+            playerVelocity.y = -2f; 
+        }
+
+        // Apply gravity to CharacterController
+        controller.Move(playerVelocity * Time.deltaTime);
+
     }
     
     public void processMove(Vector2 input) //Moves the player based on the input
@@ -81,6 +108,26 @@ public class PlayerMotor : MonoBehaviour
         {
             player.setSpeed(5); //Restores speed
         }
+    }
+
+    public void processDash()
+
+    {
+       
+        if (isDashing) // If the player is currently dashing, don't let the player dash again
+        {
+            return;
+        }
+
+        Vector3 direction = Camera.main.transform.forward; //Find where the camera is looking at for the direction vector
+
+        
+        direction.Normalize(); //Normally so all directions are equal
+
+        dashVelocity =direction * (dashDist / dashTime); //Find the dash velocity by mutiplying the speed (dist/time)
+    
+        dashTimer = 0f; //Update the dash timer
+        isDashing = true; //Set the dashing to true
     }
   
 }
