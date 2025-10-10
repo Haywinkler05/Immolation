@@ -6,7 +6,8 @@ public class InputManager : MonoBehaviour
 {
     private PlayerInput playerInput; //This intializes our input map that is currently inside the inputs folder in assets
     private PlayerInput.PlayerActions playerActions; //This one specifically intializes the player actions inside the input map
-   
+
+    public GameObject pauseGame; // Creates a gameobject to be used within the code (set that object in unity)
 
     private PlayerMotor motor; //Make an instance of the player motor class
   
@@ -20,7 +21,8 @@ public class InputManager : MonoBehaviour
         playerActions.Jump.performed += ctx => motor.processJump(); //When the button is preformed, it points to the jump function
         playerActions.Sprint.performed += ctx => motor.processSprint();
         playerActions.Dash.performed += ctx => motor.processDash();
-        playerActions.Menu.performed += ctx => SceneManager.LoadScene("HomeScreen");
+        //playerActions.Menu.performed += ctx => SceneManager.LoadScene("HomeScreen");
+        playerActions.Menu.performed += ctx => pauseGame.SetActive(true);
     }
     private void FixedUpdate() //Happens every couple of frames, normally used for physics and any movement
     {
